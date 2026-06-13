@@ -1,0 +1,1 @@
+ALTER TABLE "exprience" ALTER COLUMN "exprienceYear" DROP NOT NULL;

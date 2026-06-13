@@ -1,0 +1,1 @@
+ALTER TABLE "about" DROP COLUMN "password";

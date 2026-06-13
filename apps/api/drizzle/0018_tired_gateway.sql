@@ -1,0 +1,1 @@
+ALTER TABLE "about" ADD COLUMN "password" text;

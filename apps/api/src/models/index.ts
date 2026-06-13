@@ -1,0 +1,5 @@
+export * from "./about.model"
+export * from "./exprience.model"
+export * from "./project.model"
+export * from "./skill.model"
+export * from "./admin.model"

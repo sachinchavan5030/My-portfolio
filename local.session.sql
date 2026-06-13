@@ -1,0 +1,5 @@
+-- CREATE DATABASE portfolio;
+-- SELECT datname FROM pg_database;
+-- SELECT * FROM project;
+-- DELETE FROM about se
+-- DELETE FROM about WHERE id = 10;
