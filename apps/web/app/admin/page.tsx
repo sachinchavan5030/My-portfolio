@@ -49,7 +49,7 @@ const AboutMe = () => {
         name: z.string().min(2),
         email: z.string().email(),
         mobile: z.string(),
-        profilePic: typeof FileList !== 'undefined' ? z.instanceof(FileList) : z.any(),
+        profilePic: z.custom<FileList>(),
         dob: z.coerce.date(),
         location: z.string(),
         bio: z.string(),

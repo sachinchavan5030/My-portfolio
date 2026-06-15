@@ -46,7 +46,7 @@ const MyExprience = () => {
         description: z.string(),
         gitLink: z.string(),
         liveLink: z.string(),
-        projectImage: typeof FileList !== 'undefined' ? z.instanceof(FileList) : z.any(),
+        projectImage: z.custom<FileList>(),
 
 
 
