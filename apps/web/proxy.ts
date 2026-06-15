@@ -11,4 +11,10 @@ const proxy = (req: NextRequest) => {
     return NextResponse.next()
 }
 
+export const config = {
+    matcher: ["/admin/:path*"]
+}
+
 export default proxy
+
+
