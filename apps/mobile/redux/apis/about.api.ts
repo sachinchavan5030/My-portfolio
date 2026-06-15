@@ -6,6 +6,7 @@ export const aboutApi = createApi({
     baseQuery: fetchBaseQuery({ baseUrl: `${env.APP_URL}/api/about`, credentials: "include" }),
     tagTypes: ["about"],
     endpoints: (builder) => {
+        console.log(env.APP_URL);
         return {
             getAbout: builder.query<ABOUT_READ_RESPONSE, ABOUT_READ_REQUEST>({
                 query: () => {

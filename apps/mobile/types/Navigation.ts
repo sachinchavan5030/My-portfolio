@@ -1,7 +1,12 @@
 import { NavigationProp } from "@react-navigation/native";
 
 export type AppNavigation = NavigationProp<{
-    fe1: undefined
+    splash: undefined
     landing: undefined
-    home: undefined
+    login: undefined
+    adminDashboard: undefined
+    adminAbout: undefined
+    adminSkill: undefined
+    adminExprience: undefined
+    adminProject: undefined
 }>

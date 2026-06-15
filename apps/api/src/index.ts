@@ -8,7 +8,6 @@ import projectRoutes from './routes/project.routes'
 import skillRoutes from './routes/skill.routes'
 import contactRoutes from './routes/contact.routes'
 import cookieparser from 'cookie-parser'
-import { adminProtect } from "./middleware/admin.middleware"
 const app = express()
 
 app.use(cookieparser())
@@ -19,11 +18,11 @@ app.use(cors({
 }))
 app.use(express.json())
 app.use("/api", adminRoutes)
-app.use("/api/about", adminProtect, aboutRoutes)
-app.use("/api/exprience", adminProtect, exprienceRoutes)
-app.use("/api/project", adminProtect, projectRoutes)
-app.use("/api/skill", adminProtect, skillRoutes)
-app.use("/api/contact", adminProtect, contactRoutes)
+app.use("/api/about", aboutRoutes)
+app.use("/api/exprience", exprienceRoutes)
+app.use("/api/project", projectRoutes)
+app.use("/api/skill", skillRoutes)
+app.use("/api/contact", contactRoutes)
 
 app.get("/", (req, res) => {
     res.json({ message: "API running successfully" })
