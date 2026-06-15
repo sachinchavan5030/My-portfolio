@@ -53,7 +53,7 @@ const MyExprience = () => {
         happyClient: z.string(),
         technologies: z.string(),
         description: z.string(),
-        resume: z.instanceof(FileList),
+        resume: typeof FileList !== 'undefined' ? z.instanceof(FileList) : z.any(),
 
         doj: z.coerce.date(),
         dor: z.coerce.date(),
