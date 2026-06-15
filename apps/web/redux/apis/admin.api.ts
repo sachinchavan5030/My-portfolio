@@ -4,7 +4,7 @@ import { LOGIN_REQUEST, LOGIN_RESPONSE, LOGOUT_REQUEST, LOGOUT_RESPONSE } from "
 
 export const adminApi = createApi({
     reducerPath: "adminApi",
-    baseQuery: fetchBaseQuery({ baseUrl: `${APP_URL}/api`, credentials: "include" }),
+    baseQuery: fetchBaseQuery({ baseUrl: `/api`, credentials: "include" }),
     endpoints: (builder) => {
         return {
             signin: builder.mutation<LOGIN_RESPONSE, LOGIN_REQUEST>({

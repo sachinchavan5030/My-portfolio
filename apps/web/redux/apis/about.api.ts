@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
 import { ABOUT_CREATE_REQUEST, ABOUT_CREATE_RESPONSE, ABOUT_DELETE_REQUEST, ABOUT_DELETE_RESPONSE, ABOUT_READ_REQUEST, ABOUT_READ_RESPONSE, ABOUT_UPDATE_REQUEST, ABOUT_UPDATE_RESPONSE } from '@repo/types'
 export const aboutApi = createApi({
     reducerPath: "aboutApi",
-    baseQuery: fetchBaseQuery({ baseUrl: `${APP_URL}/api/about`, credentials: "include" }),
+    baseQuery: fetchBaseQuery({ baseUrl: `/api/about`, credentials: "include" }),
     tagTypes: ["about"],
     endpoints: (builder) => {
         return {

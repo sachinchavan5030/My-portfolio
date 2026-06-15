@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
 import { ABOUT_CREATE_REQUEST, ABOUT_CREATE_RESPONSE, ABOUT_DELETE_REQUEST, ABOUT_DELETE_RESPONSE, ABOUT_READ_REQUEST, ABOUT_READ_RESPONSE, ABOUT_UPDATE_REQUEST, ABOUT_UPDATE_RESPONSE, EXPRIENCE_DELETE_REQUEST, EXPRIENCE_DELETE_RESPONSE, EXPRIENCE_READ_REQUEST, EXPRIENCE_READ_RESPONSE, EXPRIENCE_UPDATE_RESPONSE } from '@repo/types'
 export const exprienceApi = createApi({
     reducerPath: "exprienceApi",
-    baseQuery: fetchBaseQuery({ baseUrl: `${APP_URL}/api/exprience`, credentials: "include" }),
+    baseQuery: fetchBaseQuery({ baseUrl: `/api/exprience`, credentials: "include" }),
     tagTypes: ["exprience"],
     endpoints: (builder) => {
         return {

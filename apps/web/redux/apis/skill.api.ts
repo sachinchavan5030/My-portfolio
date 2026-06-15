@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
 import { CREATE_SKILL_REQUEST, CREATE_SKILL_RESPONSE, DELETE_SKILL_REQUEST, DELETE_SKILL_RESPONSE, READ_SKILL_REQUEST, READ_SKILL_RESPONSE, UPDATE_SKILL_REQUEST, UPDATE_SKILL_RESPONSE } from "@repo/types"
 export const skillApi = createApi({
     reducerPath: "skillApi",
-    baseQuery: fetchBaseQuery({ baseUrl: `${APP_URL}/api/skill`, credentials: "include" }),
+    baseQuery: fetchBaseQuery({ baseUrl: `/api/skill`, credentials: "include" }),
     tagTypes: ["skill"],
     endpoints: (builder) => {
         return {
