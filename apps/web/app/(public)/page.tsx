@@ -1,256 +1,39 @@
 "use client"
 
-// import { useGetAboutQuery } from "@/redux/apis/about.api"
-// import Link from "next/link"
-// import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-// import { Button } from "@/components/ui/button"
-// import { Avatar, AvatarImage } from "@/components/ui/avatar"
-// import { useGetProjectQuery } from "@/redux/apis/project.api"
-// import { useGetExprienceQuery } from "@/redux/apis/exprience.api"
-
-// export default function Home() {
-//     const { data } = useGetAboutQuery()
-//     const { data: projectData } = useGetProjectQuery()
-//     const { data: exprienceData } = useGetExprienceQuery()
-
-//     const user = data?.result?.[0]
-//     const exprience = exprienceData?.result?.[0]
-
-//     return (
-//         <div className="bg-background text-foreground">
-
-//             {/* Hero Section */}
-//             <section className="container py-16 grid md:grid-cols-2 gap-10 items-center">
-//                 <div>
-//                     <h1 className="text-4xl font-bold mb-4">
-//                         Hi, I'm {user?.name}
-//                     </h1>
-
-//                     <p className="text-muted-foreground mb-6">
-//                         Frontend Developer | React | Next.js | MERN Stack
-//                     </p>
-
-//                     <div className="flex gap-3">
-//                         <Button >
-//                             <a href={exprience && exprience.resume as string}>
-//                                 Download CV
-//                             </a>
-//                         </Button>
-
-//                         <Button variant="outline" asChild>
-//                             <Link href="/contact">Contact Me</Link>
-//                         </Button>
-//                     </div>
-//                 </div>
-
-//                 <div className="flex justify-center">
-//                     <Avatar className="w-64 h-64">
-//                         <AvatarImage src={user?.profilePic as string} />
-//                     </Avatar>
-//                 </div>
-//             </section>
-
-//             {/* About */}
-//             <section className="container py-16">
-//                 <div className="text-center mb-10">
-//                     <h2 className="text-3xl font-bold">About Me</h2>
-//                     <p className="text-muted-foreground">Get to know me better</p>
-//                 </div>
-
-//                 <div className="grid md:grid-cols-2 gap-10 items-center">
-//                     <div>
-//                         <p className="mb-4">{user?.bio}</p>
-
-//                         <p className="text-muted-foreground">
-//                             Currently working on SaaS platforms and modern web apps.
-//                         </p>
-
-//                         <Button variant="outline" className="mt-4" asChild>
-//                             <Link href="/about">More About Me</Link>
-//                         </Button>
-//                     </div>
-
-//                     <div className="grid grid-cols-2 gap-4">
-//                         {[
-//                             { label: "Years Experience", value: exprience?.exprienceYear },
-//                             { label: "Projects", value: exprience?.projects },
-//                             { label: "Technologies", value: exprience?.technologies },
-//                             { label: "Happy Clients", value: exprience?.happyClient },
-//                         ].map((item, i) => (
-//                             <Card key={i}>
-//                                 <CardContent className="p-6 text-center">
-//                                     <h3 className="text-2xl font-bold">{item.value}+</h3>
-//                                     <p className="text-muted-foreground text-sm">
-//                                         {item.label}
-//                                     </p>
-//                                 </CardContent>
-//                             </Card>
-//                         ))}
-//                     </div>
-//                 </div>
-//             </section>
-
-//             {/* Skills */}
-//             <section className="container py-16">
-//                 <div className="text-center mb-10">
-//                     <h2 className="text-3xl font-bold">Skills</h2>
-//                     <p className="text-muted-foreground">Technologies I work with</p>
-//                 </div>
-
-//                 <div className="grid md:grid-cols-4 sm:grid-cols-2 gap-4">
-//                     {[
-//                         "HTML",
-//                         "CSS",
-//                         "JavaScript",
-//                         "React",
-//                         "Next.js",
-//                         "Redux",
-//                         "Node.js",
-//                         "Bootstrap",
-//                     ].map((skill, i) => (
-//                         <Card key={i}>
-//                             <CardContent className="p-4 text-center">
-//                                 {skill}
-//                             </CardContent>
-//                         </Card>
-//                     ))}
-//                 </div>
-
-//                 <div className="text-center mt-6">
-//                     <Button variant="outline" asChild>
-//                         <Link href="/skills">More Skills</Link>
-//                     </Button>
-//                 </div>
-//             </section>
-
-//             {/* Projects */}
-//             <section className="container py-16">
-//                 <div className="text-center mb-10">
-//                     <h2 className="text-3xl font-bold">Projects</h2>
-//                     <p className="text-muted-foreground">Some of my work</p>
-//                 </div>
-
-//                 <div className="grid md:grid-cols-3 gap-6">
-//                     {projectData?.result?.map((item: any) => (
-//                         <Card key={item.id}>
-//                             <img
-//                                 src={item.projectImage}
-//                                 className="h-48 w-full object-cover rounded-t-lg"
-//                             />
-
-//                             <CardHeader>
-//                                 <CardTitle>{item.title}</CardTitle>
-//                             </CardHeader>
-
-//                             <CardContent>
-//                                 <p className="text-muted-foreground mb-4">
-//                                     {item.desc}
-//                                 </p>
-
-//                                 <div className="flex gap-2">
-//                                     <Button size="sm" asChild>
-//                                         <a href={item.liveLink} target="_blank">Live</a>
-//                                     </Button>
-
-//                                     <Button size="sm" variant="outline" asChild>
-//                                         <a href={item.githubLink} target="_blank">GitHub</a>
-//                                     </Button>
-//                                 </div>
-//                             </CardContent>
-//                         </Card>
-//                     ))}
-//                 </div>
-
-//                 <div className="text-center mt-6">
-//                     <Button variant="outline" asChild>
-//                         <Link href="/project">More Projects</Link>
-//                     </Button>
-//                 </div>
-//             </section>
-
-//             {/* Contact CTA */}
-//             <section className="container py-16 text-center">
-//                 <h2 className="text-3xl font-bold mb-4">
-//                     Ready to Work Together?
-//                 </h2>
-//                 <p className="text-muted-foreground mb-6">
-//                     Let's build something amazing together.
-//                 </p>
-
-//                 <Button asChild>
-//                     <Link href="/contact">Get In Touch</Link>
-//                 </Button>
-//             </section>
-
-//             {/* Footer */}
-//             <footer className="border-t py-10">
-//                 <div className="container grid md:grid-cols-3 gap-6">
-
-//                     <div>
-//                         <h4 className="font-bold">{user?.name}</h4>
-//                         <p className="text-muted-foreground text-sm">
-//                             Full Stack Developer building modern web apps.
-//                         </p>
-//                     </div>
-
-//                     <div>
-//                         <h4 className="font-bold mb-2">Contact</h4>
-//                         <p className="text-muted-foreground text-sm">
-//                             {user?.email}
-//                         </p>
-//                         <p className="text-muted-foreground text-sm">
-//                             {user?.mobile}
-//                         </p>
-//                     </div>
-
-//                     <div className="text-left md:text-right">
-//                         <h4 className="font-bold mb-2">Social</h4>
-//                         <div className="flex gap-3 md:justify-end">
-//                             <a href="#">GitHub</a>
-//                             <a href="#">LinkedIn</a>
-//                         </div>
-//                     </div>
-//                 </div>
-
-//                 <p className="text-center text-sm text-muted-foreground mt-6">
-//                     © 2026 Sachin. All rights reserved.
-//                 </p>
-//             </footer>
-
-//         </div>
-//     )
-// }
-
-
 
 import { useGetAboutQuery } from "@/redux/apis/about.api"
-import Link from "next/link"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Avatar, AvatarImage } from "@/components/ui/avatar"
-import { Badge } from "@/components/ui/badge"
 import { useGetProjectQuery } from "@/redux/apis/project.api"
 import { useGetExprienceQuery } from "@/redux/apis/exprience.api"
 import { motion, useScroll, useTransform, Variants } from "framer-motion"
 import { useEffect, useState } from "react"
-
-// Simple Icons
 import {
-    Mail,
-    Phone,
-    Download,
-    ExternalLink,
-    Code2,
-    Users,
-    Trophy,
-    Heart,
-    ArrowRight,
-    CheckCircle2,
-    Award,
-    // Github,
-    // Linkedin,
-    Briefcase
-} from "lucide-react"
+    FaArrowRight,
+    FaAward,
+    FaBriefcase,
+    FaCheckCircle,
+    FaCode,
+    FaDownload,
+    FaExternalLinkAlt,
+    FaGithub,
+    FaLinkedin,
+    FaUser,
+} from "react-icons/fa";
+
+import {
+    SiReact,
+    SiNextdotjs,
+    SiNodedotjs,
+    SiTypescript,
+    SiRedux,
+    SiMongodb,
+    SiTailwindcss,
+    SiPostgresql,
+    SiGmail,
+} from "react-icons/si";
+import Link from "next/link"
+import { Mail, MapPin, Phone } from "lucide-react"
 
 export default function Home() {
     const { data } = useGetAboutQuery()
@@ -306,345 +89,804 @@ export default function Home() {
     if (!mounted) return null
 
     return (
-        <div className="bg-white text-gray-900">
-
+        <div className="bg-public-bg min-h-screen overflow-hidden pt-25">
             {/* Hero Section */}
+
             <motion.section
-                initial="hidden"
-                animate="visible"
-                variants={staggerContainer}
-                className="container mx-auto px-4 py-20 md:py-28 min-h-[85vh] flex items-center"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="relative min-h-screen flex items-center overflow-hidden bg-public-bg"
             >
-                <div className="grid md:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
-                    <div className="space-y-6">
-                        <motion.div variants={fadeInUp} className="space-y-3">
-                            <h1 className="text-5xl md:text-7xl font-bold tracking-tight">
+                <div className="absolute inset-0 overflow-hidden">
+                    <div className="absolute top-20 left-10 h-72 w-72 rounded-full bg-pink-500/10 blur-[120px]" />
+                    <div className="absolute bottom-10 right-10 h-72 w-72 rounded-full bg-purple-500/10 blur-[120px]" />
+                </div>
+
+                <div className="container mx-auto px-6 relative z-10">
+                    <div className="grid lg:grid-cols-2 gap-20 items-center">
+                        <motion.div
+                            initial={{ opacity: 0, x: -80 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.8 }}
+                        >
+                            <span className="tracking-[4px] uppercase text-public-text-muted text-sm">
+                                Welcome To My Portfolio
+                            </span>
+
+                            <h1 className="mt-6 text-6xl lg:text-7xl font-extrabold leading-tight text-public-text-heading">
                                 Hi, I'm{" "}
-                                <span className="text-gray-900">
-                                    {user?.name?.split(" ")[0]}
+                                <span className="text-[#FF014F]">
+                                    {user?.name}
                                 </span>
                             </h1>
-                            <p className="text-xl md:text-2xl text-gray-600">
+
+                            <h2 className="mt-4 text-2xl md:text-4xl font-semibold text-public-text-body">
                                 Full Stack Developer
-                            </p>
+                            </h2>
+
+                            <div className="flex flex-wrap gap-5 mt-10">
+
+                                <Button className=" bg-public-card-bg text-public-text-heading px-8 py-6 rounded-xl public-shadow hover:bg-public-hover-bg hover:text-white duration-500">
+                                    <a href={exprience?.resume as string} download>
+                                        <FaDownload className="mr-2 h-3 w-4" />
+                                        Download CV
+                                    </a>
+                                </Button>
+
+                                <Button
+                                    variant="outline"
+                                    className="bg-public-card-bg text-public-text-heading px-8 py-6 rounded-xl public-shadow hover:bg-public-hover-bg hover:text-white duration-500 ">
+                                    <Link href="/contact">
+                                        Contact Me
+                                    </Link>
+
+                                    <FaArrowRight className="mr-2 h-3 w-4" />
+                                </Button>
+                            </div>
+
+                            <div className="flex gap-5 mt-12">
+                                {[
+                                    {
+                                        icon: <FaGithub />,
+                                        href: user?.gitHubLink,
+                                    },
+                                    {
+                                        icon: <FaLinkedin />,
+                                        href: user?.linkdinLink?.startsWith("http")
+                                            ? user.linkdinLink
+                                            : `https://${user?.linkdinLink}`,
+                                    },
+                                    {
+                                        icon: <SiGmail />,
+                                        href: `mailto:${user?.email}`,
+                                    },
+                                ].map((item, i) => (
+                                    <Link
+                                        key={i}
+                                        href={item.href || "#"}
+                                        target="_blank"
+                                        className="
+        h-14
+        w-14
+        rounded-xl
+        flex
+        items-center
+        justify-center
+        text-xl
+        bg-public-card-bg
+        public-shadow
+        hover:-translate-y-2
+        hover:text-[#FF014F]
+        transition-all
+        duration-500
+        cursor-pointer
+        "
+                                    >
+                                        {item.icon}
+                                    </Link>
+                                ))}
+                            </div>
                         </motion.div>
-
-                        <motion.p variants={fadeInUp} className="text-gray-600 leading-relaxed max-w-lg">
-                            Building clean, responsive, and user-friendly web applications with modern technologies.
-                        </motion.p>
-
-                        <motion.div variants={fadeInUp} className="flex flex-wrap gap-4">
-                            <Button size="lg" className="bg-gray-900 hover:bg-gray-800 text-white" asChild>
-                                <a href={exprience?.resume as string} download>
-                                    <Download className="mr-2 h-4 w-4" />
-                                    Download CV
-                                </a>
-                            </Button>
-                            <Button size="lg" variant="outline" className="border-gray-300" asChild>
-                                <Link href="/contact">
-                                    Contact Me
-                                    <ArrowRight className="ml-2 h-4 w-4" />
-                                </Link>
-                            </Button>
-                        </motion.div>
-
-                        <motion.div variants={fadeInUp} className="flex gap-5 pt-4">
-                            <a
-                                href="https://github.com/yourusername"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-gray-500 hover:text-gray-900 transition-colors"
-                            >
-                                {/* <Github className="w-5 h-5" /> */}
-                            </a>
-                            <a
-                                href="https://linkedin.com/in/yourusername"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-gray-500 hover:text-gray-900 transition-colors"
-                            >
-                                {/* <Linkedin className="w-5 h-5" /> */}
-                            </a>
-                            <a
-                                href={`mailto:${user?.email}`}
-                                className="text-gray-500 hover:text-gray-900 transition-colors"
-                            >
-                                <Mail className="w-5 h-5" />
-                            </a>
+                        <motion.div
+                            initial={{ opacity: 0, x: 80 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.8 }}
+                            className="flex justify-center">
+                            <div className="relative">
+                                <motion.div className=" w-[420px] h-[520px] rounded-[30px] overflow-hidden bg-public-card-bg public-shadow-lg ">
+                                    <img
+                                        src={user?.profilePic as string}
+                                        className="w-full h-full object-cover"
+                                        alt="profile"
+                                    />
+                                </motion.div>
+                            </div>
                         </motion.div>
                     </div>
-
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.5, delay: 0.2 }}
-                        className="flex justify-center"
-                        style={{ y, opacity }}
-                    >
-                        <Avatar className="w-64 h-64 md:w-80 md:h-80 ring-4 ring-gray-100 shadow-xl">
-                            <AvatarImage src={user?.profilePic as string} className="object-cover" />
-                        </Avatar>
-                    </motion.div>
                 </div>
             </motion.section>
 
-            {/* About Section */}
-            <motion.section
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.3 }}
-                variants={staggerContainer}
-                className="bg-gray-50 py-20"
-            >
-                <div className="container mx-auto px-4 max-w-6xl">
-                    <motion.div variants={fadeInUp} className="text-center mb-12">
-                        <h2 className="text-3xl md:text-4xl font-bold mb-3">About Me</h2>
-                        <div className="w-16 h-1 bg-gray-300 mx-auto"></div>
-                    </motion.div>
+            <hr className="border-0 h-[2px] my-8 bg-gradient-to-r from-transparent via-public-divider to-transparent" />
 
-                    <div className="grid md:grid-cols-2 gap-12 items-start">
-                        <motion.div variants={fadeInLeft} className="space-y-5">
-                            <p className="text-gray-700 leading-relaxed">
+            {/* About Section  */}
+
+            <motion.section
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                className="py-5 bg-public-bg" >
+                <div className="container mx-auto px-6">
+                    <div className="text-center mb-20">
+                        <h2 className="mt-4 text-5xl font-bold text-public-text-heading">
+                            About Me
+                        </h2>
+                    </div>
+                    <div className="grid lg:grid-cols-2 gap-20 items-center">
+                        <motion.div
+                            initial={{ opacity: 0, x: -80 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.8 }}
+                        >
+                            <h2 className="mt-5 text-5xl font-bold text-public-text-heading">
+                                Professional Full Stack Developer
+                            </h2>
+
+                            <p className="mt-8 text-lg text-public-text-muted leading-loose">
                                 {user?.bio}
                             </p>
-                            <div className="space-y-3">
-                                <div className="flex items-start gap-3">
-                                    <CheckCircle2 className="w-5 h-5 text-gray-600 mt-0.5 flex-shrink-0" />
-                                    <p className="text-gray-600">5+ years of professional experience</p>
-                                </div>
-                                <div className="flex items-start gap-3">
-                                    <CheckCircle2 className="w-5 h-5 text-gray-600 mt-0.5 flex-shrink-0" />
-                                    <p className="text-gray-600">20+ projects delivered successfully</p>
-                                </div>
-                                <div className="flex items-start gap-3">
-                                    <CheckCircle2 className="w-5 h-5 text-gray-600 mt-0.5 flex-shrink-0" />
-                                    <p className="text-gray-600">React, Next.js, Node.js expert</p>
-                                </div>
-                            </div>
-                            <Button variant="outline" className="mt-2" asChild>
-                                <Link href="/about">
-                                    More About Me
-                                    <ArrowRight className="ml-2 h-4 w-4" />
-                                </Link>
-                            </Button>
                         </motion.div>
 
                         <motion.div
-                            variants={staggerContainer}
-                            initial="hidden"
-                            whileInView="visible"
+                            initial={{ opacity: 0, x: 80 }}
+                            whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
-                            className="grid grid-cols-2 gap-5"
+                            transition={{ duration: 0.8 }}
                         >
-                            {[
-                                { icon: Award, label: "Experience", value: exprience?.exprienceYear },
-                                { icon: Code2, label: "Projects", value: exprience?.projects },
-                                { icon: Briefcase, label: "Technologies", value: exprience?.technologies },
-                                { icon: Users, label: "Clients", value: exprience?.happyClient },
-                            ].map((item, i) => (
-                                <motion.div key={i} variants={scaleIn}>
-                                    <Card className="text-center border shadow-sm">
-                                        <CardContent className="p-6">
-                                            <item.icon className="w-8 h-8 mx-auto mb-3 text-gray-500" />
-                                            <h3 className="text-3xl font-bold mb-1">{item.value}+</h3>
-                                            <p className="text-gray-500 text-sm">{item.label}</p>
-                                        </CardContent>
-                                    </Card>
-                                </motion.div>
-                            ))}
-                        </motion.div>
-                    </div>
-                </div>
-            </motion.section>
 
-            {/* Skills Section */}
-            <motion.section
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.3 }}
-                variants={staggerContainer}
-                className="py-20"
-            >
-                <div className="container mx-auto px-4 max-w-6xl">
-                    <motion.div variants={fadeInUp} className="text-center mb-12">
-                        <h2 className="text-3xl md:text-4xl font-bold mb-3">Skills</h2>
-                        <div className="w-16 h-1 bg-gray-300 mx-auto"></div>
-                        <p className="text-gray-600 mt-4">Technologies I work with</p>
-                    </motion.div>
-
-                    <motion.div
-                        variants={staggerContainer}
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true }}
-                        className="flex flex-wrap justify-center gap-3"
-                    >
-                        {skills.map((skill, i) => (
-                            <motion.div key={i} variants={scaleIn}>
-                                <Badge variant="secondary" className="px-4 py-2 text-base bg-gray-100 text-gray-700 hover:bg-gray-200">
-                                    {skill}
-                                </Badge>
-                            </motion.div>
-                        ))}
-                    </motion.div>
-
-                    <motion.div variants={fadeInUp} className="text-center mt-8">
-                        <Button variant="outline" asChild>
-                            <Link href="/skills">
-                                View All Skills
-                                <ArrowRight className="ml-2 h-4 w-4" />
-                            </Link>
-                        </Button>
-                    </motion.div>
-                </div>
-            </motion.section>
-
-            {/* Projects Section */}
-            <motion.section
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.2 }}
-                variants={staggerContainer}
-                className="bg-gray-50 py-20"
-            >
-                <div className="container mx-auto px-4 max-w-6xl">
-                    <motion.div variants={fadeInUp} className="text-center mb-12">
-                        <h2 className="text-3xl md:text-4xl font-bold mb-3">Projects</h2>
-                        <div className="w-16 h-1 bg-gray-300 mx-auto"></div>
-                        <p className="text-gray-600 mt-4">Some of my recent work</p>
-                    </motion.div>
-
-                    <motion.div
-                        variants={staggerContainer}
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true }}
-                        className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
-                    >
-                        {projectData?.result?.map((item: any) => (
-                            <motion.div key={item.id} variants={scaleIn}>
-                                <Card className="overflow-hidden h-full flex flex-col shadow-sm hover:shadow-md transition-shadow">
-                                    <div className="relative overflow-hidden h-48 bg-gray-200">
-                                        <img
-                                            src={item.projectImage}
-                                            alt={item.title}
-                                            className="w-full h-full object-cover"
-                                        />
+                            <div className="mt-10 space-y-6">{[
+                                "Modern React & Next.js Development",
+                                "Responsive Mobile Friendly UI",
+                                "SEO Optimized Applications",
+                                "REST API & Backend Integration"
+                            ].map((item, index) => (
+                                <div
+                                    key={index}
+                                    className="flex items-center gap-4"
+                                >
+                                    <div className=" h-12 w-12 rounded-xl flex items-center justify-center bg-public-card-bg public-shadow-sm ">
+                                        <FaCheckCircle className="text-[#FF014F]" />
                                     </div>
-                                    <CardHeader>
-                                        <CardTitle className="text-xl">{item.title}</CardTitle>
-                                    </CardHeader>
-                                    <CardContent className="flex-1 space-y-3">
-                                        <p className="text-gray-600 text-sm leading-relaxed">
-                                            {item.desc}
+
+                                    <span className="text-public-text-body text-lg">
+                                        {item}
+                                    </span>
+                                </div>
+                            ))}
+                            </div>
+
+                        </motion.div>
+
+                    </div>
+
+                    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mt-24">
+
+                        {[
+                            {
+                                icon: FaAward,
+                                value: exprience?.exprienceYear,
+                                title: "Years Experience"
+                            },
+                            {
+                                icon: FaCode,
+                                value: exprience?.projects,
+                                title: "Projects"
+                            },
+                            {
+                                icon: FaBriefcase,
+                                value: exprience?.technologies,
+                                title: "Technologies"
+                            },
+                            {
+                                icon: FaUser,
+                                value: exprience?.happyClient,
+                                title: "Happy Clients"
+                            }
+                        ].map((item, index) => (
+                            <motion.div
+                                key={index}
+                                whileHover={{
+                                    y: -10,
+                                    scale: 1.03
+                                }}
+                            >
+                                <Card className=" border-0 rounded-3xl bg-public-card-bg public-shadow-lg ">
+                                    <CardContent className="p-10 text-center">
+                                        <item.icon className=" mx-auto mb-6 text-[#FF014F] " size={40} />
+
+                                        <h3 className="text-5xl font-bold text-public-text-heading">
+                                            {item.value}+
+                                        </h3>
+
+                                        <p className="mt-3 text-public-text-muted">
+                                            {item.title}
                                         </p>
-                                        <div className="flex flex-wrap gap-2">
-                                            {item.technologies?.slice(0, 3).map((tech: string, i: number) => (
-                                                <span key={i} className="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">
-                                                    {tech}
-                                                </span>
-                                            ))}
-                                        </div>
-                                        <div className="flex gap-3 pt-2">
-                                            <a
-                                                href={item.liveLink}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="text-sm text-gray-700 hover:text-gray-900 flex items-center gap-1"
-                                            >
-                                                <ExternalLink className="w-3 h-3" />
-                                                Live
-                                            </a>
-                                            <a
-                                                href={item.githubLink}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="text-sm text-gray-700 hover:text-gray-900 flex items-center gap-1"
-                                            >
-                                                {/* <Github className="w-3 h-3" /> */}
-                                                Code
-                                            </a>
-                                        </div>
+
                                     </CardContent>
                                 </Card>
                             </motion.div>
                         ))}
-                    </motion.div>
 
-                    <motion.div variants={fadeInUp} className="text-center mt-10">
-                        <Button variant="outline" asChild>
-                            <Link href="/project">
-                                View All Projects
-                                <ArrowRight className="ml-2 h-4 w-4" />
-                            </Link>
-                        </Button>
-                    </motion.div>
+                    </div>
+
                 </div>
             </motion.section>
+
+            <hr className="border-0 h-[2px] my-8 bg-gradient-to-r from-transparent via-public-divider to-transparent" />
+
+            {/* Skills Section */}
+
+            <motion.section
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                className="py-5 bg-public-bg"
+            >
+                <div className="container mx-auto px-6">
+                    <div className="text-center mb-20">
+                        <h2 className="mt-4 text-5xl font-bold text-public-text-heading">
+                            My Skills
+                        </h2>
+                    </div>
+                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+                        {[
+                            {
+                                icon: <SiReact size={45} />,
+                                title: "React.js"
+                            },
+                            {
+                                icon: <SiNextdotjs size={45} />,
+                                title: "Next.js"
+                            },
+                            {
+                                icon: <SiNodedotjs size={45} />,
+                                title: "Node.js"
+                            },
+                            {
+                                icon: <SiTypescript size={45} />,
+                                title: "TypeScript"
+                            },
+                            {
+                                icon: <SiRedux size={45} />,
+                                title: "Redux"
+                            },
+                            {
+                                icon: <SiMongodb size={45} />,
+                                title: "MongoDB"
+                            },
+                            {
+                                icon: <SiTailwindcss size={45} />,
+                                title: "Tailwind CSS"
+                            },
+                            {
+                                icon: <SiPostgresql size={45} />,
+                                title: "PostgreSQL"
+                            }
+                        ].map((skill, index) => (
+
+                            <motion.div
+                                key={index}
+                                initial={{ opacity: 0, y: 50 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                transition={{
+                                    duration: 0.6,
+                                    delay: index * 0.1
+                                }}
+                                whileHover={{ y: -12, scale: 1.04 }}>
+                                <Card
+                                    className=" border-0 h-[220px] rounded-3xl bg-public-card-bg public-shadow-lg hover-public-shadow-sm transition-all duration-500 ">
+                                    <CardContent
+                                        className=" flex flex-col items-center justify-center h-full text-center ">
+                                        <div className="text-[#FF014F]">
+                                            {skill.icon}
+                                        </div>
+
+                                        <h3 className=" mt-8 text-xl font-semibold text-public-text-heading ">
+                                            {skill.title}
+                                        </h3>
+                                    </CardContent>
+                                </Card>
+                            </motion.div>
+                        ))}
+
+                    </div>
+
+                    <div className="text-center mt-20">
+
+                        <Button className=" px-8 py-6 bg-public-card-bg text-[#FF014F] public-shadow hover:bg-[#FF014F] hover:text-white duration-500 ">
+                            View All Skills
+                        </Button>
+
+                    </div>
+
+                </div>
+            </motion.section>
+
+            <hr className="border-0 h-[2px] my-8 bg-gradient-to-r from-transparent via-public-divider to-transparent" />
+
+            {/* Project Session */}
+
+            <motion.section
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                className="py-5 bg-public-bg"
+            >
+                <div className="container mx-auto px-6">
+                    <div className="text-center mb-20">
+                        <h2 className="mt-4 text-5xl font-bold text-public-text-heading">
+                            My Projects
+                        </h2>
+                    </div>
+                    <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-10">
+                        {projectData?.result?.map((item: any, index: number) => (
+                            <motion.div
+                                key={item.id}
+                                initial={{ opacity: 0, y: 60 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.7, delay: index * 0.1 }}
+                                whileHover={{ y: -15 }}>
+
+                                <Card className=" border-0 overflow-hidden rounded-[30px] bg-public-card-bg public-shadow-lg transition-all duration-500 group ">
+                                    <div className=" overflow-hidden h-[260px] " >
+                                        <img
+                                            src={item.projectImage}
+                                            alt={item.title}
+                                            className=" w-full h-full object-cover transition-all duration-700 group-hover:scale-110 "
+                                        />
+                                    </div>
+
+                                    <CardContent className="p-8">
+                                        <div className="flex justify-between items-center mb-4">
+                                        </div>
+                                        <h3 className=" text-2xl font-bold text-public-text-heading group-hover:text-[#FF014F] transition-all duration-500 ">
+                                            {item.title}
+                                        </h3>
+                                        <p className=" mt-4 text-public-text-heading leading-relaxed ">
+                                            {item.description}
+                                        </p>
+
+                                        <div className="flex flex-wrap gap-2 mt-5">
+
+                                            {item.technologies
+                                                ?.slice(0, 4)
+                                                .map((tech: string, i: number) => (
+
+                                                    <span
+                                                        key={i}
+                                                        className="
+                                            px-3
+                                            py-1
+                                            text-xs
+                                            rounded-full
+                                            bg-public-tech-tag
+                                            text-[#FF014F]
+                                            shadow-sm
+                                            "
+                                                    >
+                                                        {tech}
+                                                    </span>
+
+                                                ))}
+                                        </div>
+
+                                        {/* Links */}
+
+                                        <div className="flex gap-6 mt-8">
+
+                                            <a
+                                                href={item.liveLink}
+                                                target="_blank"
+                                                className="
+                                    flex
+                                    items-center
+                                    gap-2
+                                    text-public-text-heading
+                                    hover:text-[#FF014F]
+                                    duration-300
+                                    "
+                                            >
+                                                <FaExternalLinkAlt size={16} />
+                                                Live Demo
+                                            </a>
+
+                                            <a
+                                                href={item.githubLink}
+                                                target="_blank"
+                                                className="
+                                    flex
+                                    items-center
+                                    gap-2
+                                    text-public-text-heading
+                                    hover:text-[#FF014F]
+                                    duration-300
+                                    "
+                                            >
+                                                <FaGithub />
+                                                Source Code
+                                            </a>
+
+                                        </div>
+
+                                    </CardContent>
+
+                                </Card>
+                            </motion.div>
+
+                        ))}
+
+                    </div>
+
+                    {/* Button */}
+
+                    <div className="text-center mt-20">
+
+                        <Button
+                            className="
+                px-8
+                py-6
+                bg-public-card-bg
+                text-[#FF014F]
+                public-shadow
+                hover:bg-[#FF014F]
+                hover:text-white
+                duration-500
+                "
+                        >
+                            View All Projects
+                        </Button>
+
+                    </div>
+
+                </div>
+            </motion.section>
+
+            <hr className="border-0 h-[2px] my-8 bg-gradient-to-r from-transparent via-public-divider to-transparent" />
 
             {/* Contact CTA */}
             <motion.section
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.5 }}
-                variants={staggerContainer}
-                className="py-20"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                className="py-5 bg-public-bg"
             >
-                <div className="container mx-auto px-4 max-w-4xl text-center">
-                    <motion.div variants={scaleIn} className="border border-gray-200 rounded-2xl p-10 md:p-16 shadow-sm bg-white">
-                        <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                            Let's Work Together
-                        </h2>
-                        <p className="text-gray-600 mb-8 max-w-lg mx-auto">
-                            Have a project in mind? I'd love to hear about it.
-                        </p>
-                        <Button size="lg" className="bg-gray-900 hover:bg-gray-800 text-white" asChild>
-                            <Link href="/contact">
+                <div className="container mx-auto px-6">
+
+                    <motion.div
+                        whileHover={{
+                            y: -8
+                        }}
+                        className="
+            relative
+            overflow-hidden
+            rounded-[40px]
+            bg-public-card-bg
+            public-shadow-xl
+            "
+                    >
+
+                        {/* Background Glow */}
+
+                        <div
+                            className="
+                absolute
+                top-0
+                right-0
+                h-80
+                w-80
+                bg-[#FF014F]/10
+                blur-[120px]
+                rounded-full
+                "
+                        />
+
+                        <div
+                            className="
+                relative
+                z-10
+                p-10
+                md:p-20
+                text-center
+                "
+                        >
+
+                            <span
+                                className="
+                    uppercase
+                    tracking-[4px]
+                    text-[#FF014F]
+                    text-sm
+                    "
+                            >
+                                Contact
+                            </span>
+
+                            <h2
+                                className="
+                    mt-5
+                    text-4xl
+                    md:text-6xl
+                    font-bold
+                    text-public-text-heading
+                    "
+                            >
+                                Let's Work Together
+                            </h2>
+
+                            <p
+                                className="
+                    mt-6
+                    text-lg
+                    text-public-text-muted
+                    max-w-2xl
+                    mx-auto
+                    "
+                            >
+                                Have a project in mind? Looking for a Full Stack Developer?
+                                Let's build something amazing together.
+                            </p>
+
+                            <Button
+                                size="lg"
+                                className="
+                    mt-10
+                    px-10
+                    py-7
+                    bg-public-card-bg
+                    text-[#FF014F]
+                    public-shadow
+                    hover:bg-[#FF014F]
+                    hover:text-white
+                    duration-500
+                    "
+                            >
                                 Get In Touch
-                                <ArrowRight className="ml-2 h-4 w-4" />
-                            </Link>
-                        </Button>
+                                <FaArrowRight className="ml-2 h-4 w-4" />
+                            </Button>
+
+                        </div>
+
                     </motion.div>
+
                 </div>
             </motion.section>
 
+            <hr className="border-0 h-[2px] my-8 bg-gradient-to-r from-transparent via-public-divider to-transparent" />
+
             {/* Footer */}
-            <footer className="border-t border-gray-200 py-10 bg-gray-50">
-                <div className="container mx-auto px-4 max-w-6xl">
-                    <div className="grid md:grid-cols-3 gap-8 text-center md:text-left">
+
+            {/* <footer className="bg-public-card-bg py-20">
+
+                <div className="container mx-auto px-6">
+
+                    <div className="grid md:grid-cols-3 gap-10">
+
+
                         <div>
-                            <h4 className="font-semibold text-lg mb-2">{user?.name}</h4>
-                            <p className="text-gray-500 text-sm">
+
+                            <h3 className=" text-3xl font-bold text-public-text-heading ">
+                                {user?.name}
+                            </h3>
+
+                            <p className="mt-4 text-public-text-muted">
                                 Full Stack Developer
                             </p>
+
                         </div>
+
+
                         <div>
-                            <h4 className="font-semibold mb-2">Contact</h4>
-                            <p className="text-gray-500 text-sm">{user?.email}</p>
-                            <p className="text-gray-500 text-sm">{user?.mobile}</p>
+
+                            <h4 className=" font-semibold text-xl mb-5 ">
+                                Contact
+                            </h4>
+
+                            <p className="text-public-text-muted">
+                                {user?.email}
+                            </p>
+
+                            <p className="mt-2 text-public-text-muted">
+                                {user?.mobile}
+                            </p>
+
                         </div>
+
+
                         <div>
-                            <h4 className="font-semibold mb-2">Social</h4>
-                            <div className="flex justify-center md:justify-end gap-4">
-                                <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-gray-900">
-                                    {/* <Github className="w-5 h-5" /> */}
-                                </a>
-                                <a href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-gray-900">
-                                    {/* <Linkedin className="w-5 h-5" /> */}
-                                </a>
-                                <a href={`mailto:${user?.email}`} className="text-gray-500 hover:text-gray-900">
-                                    <Mail className="w-5 h-5" />
-                                </a>
+
+                            <h4
+                                className="
+                    font-semibold
+                    text-xl
+                    mb-5
+                    "
+                            >
+                                Follow Me
+                            </h4>
+
+
+
+                            <div className="flex gap-5 mt-12">
+                                {[
+                                    {
+                                        icon: <FaGithub />,
+                                        href: user?.gitHubLink,
+                                    },
+                                    {
+                                        icon: <FaLinkedin />,
+                                        href: user?.linkdinLink?.startsWith("http")
+                                            ? user.linkdinLink
+                                            : `https://${user?.linkdinLink}`,
+                                    },
+                                    {
+                                        icon: <SiGmail />,
+                                        href: `mailto:${user?.email}`,
+                                    },
+                                ].map((item, i) => (
+                                    <Link
+                                        key={i}
+                                        href={item.href || "#"}
+                                        target="_blank"
+                                        className="
+        h-14
+        w-14
+        rounded-xl
+        flex
+        items-center
+        justify-center
+        text-xl
+        bg-public-card-bg
+        public-shadow
+        hover:-translate-y-2
+        hover:text-[#FF014F]
+        transition-all
+        duration-500
+        cursor-pointer
+        "
+                                    >
+                                        {item.icon}
+                                    </Link>
+                                ))}
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        className="
+            mt-16
+            pt-8
+            border-t
+            border-public-border
+            text-center
+            "
+                    >
+                        <p className="text-public-text-muted">
+                            © {new Date().getFullYear()} {user?.name}.
+                            All Rights Reserved.
+                        </p>
+                    </div>
+
+                </div>
+
+            </footer> */}
+
+            <footer className="border-t border-public-border bg-public-bg py-12">
+                <div className="container grid md:grid-cols-3 gap-8">
+                    <div>
+                        <h4 className="font-semibold text-lg text-public-text-heading">
+                            {data?.result?.[0]?.name}
+                        </h4>
+                        <p className="text-public-text-muted text-sm mt-2">
+                            Full Stack Developer passionate about building scalable
+                            and modern web applications.
+                        </p>
+                    </div>
+                    <div>
+                        <h4 className="font-semibold text-public-text-heading mb-3">Contact</h4>
+                        <div className="text-public-text-muted text-sm space-y-1">
+                            <div className="flex flex-wrap gap-8 items-center text-sm md:text-base">
+                                <div className="flex items-center gap-3">
+                                    <Mail
+                                        size={18}
+                                        className="text-black dark:text-white"
+                                    />
+                                    <span>{user?.email}</span>
+                                </div>
+
+                                <div className="flex items-center gap-3">
+                                    <Phone
+                                        size={18}
+                                        className="text-black dark:text-white"
+                                    />
+                                    <span>{user?.mobile}</span>
+                                </div>
+
+                                <div className="flex items-center gap-3">
+                                    <MapPin
+                                        size={18}
+                                        className="text-black dark:text-white"
+                                    />
+                                    <span>{user?.location}</span>
+                                </div>
+
                             </div>
                         </div>
                     </div>
-                    <div className="border-t border-gray-200 mt-8 pt-6 text-center">
-                        <p className="text-gray-400 text-sm">
-                            © {new Date().getFullYear()} {user?.name}. All rights reserved.
-                        </p>
+                    <div className="md:text-right">
+                        <h4 className="font-semibold text-public-text-heading mb-3">Social</h4>
+                        <div className="flex gap-4 md:justify-end">
+                            {/* {socialIcons.map((icon, i) => (
+                                            <div
+                                                key={i}
+                                                className="h-12 w-12 rounded-xl flex items-center justify-center text-lg bg-public-card-bg public-shadow-sm hover:-translate-y-2 hover:text-[#FF014F] transition-all duration-500 cursor-pointer"
+                                            >
+                                                {icon}
+                                            </div>
+                                        ))} */}
+                            <div className="flex gap-5 mt-1">
+                                {[
+                                    {
+                                        icon: <FaGithub key="g" />,
+                                        href: user?.gitHubLink,
+                                    },
+                                    {
+                                        icon: <FaLinkedin key="l" />,
+                                        href: user?.linkdinLink?.startsWith("http")
+                                            ? user.linkdinLink
+                                            : `https://${user?.linkdinLink}`,
+                                    },
+                                    {
+                                        icon: <SiGmail key="m" />,
+                                        href: `mailto:${user?.email}`,
+                                    },
+                                ].map((item, i) => (
+                                    <Link
+                                        key={i}
+                                        href={item.href || "#"}
+                                        target="_blank"
+                                        className="
+                                                h-12
+                                                w-12
+                                                rounded-xl
+                                                flex
+                                                items-center
+                                                justify-center
+                                                text-xl
+                                                bg-public-card-bg
+                                                public-shadow
+                                                hover:-translate-y-2
+                                                hover:text-[#FF014F]
+                                                transition-all
+                                                duration-500
+                                                cursor-pointer
+                                                "
+                                    >
+                                        {item.icon}
+                                    </Link>
+                                ))}
+                            </div>
+                        </div>
                     </div>
                 </div>
+                <p className="text-center text-sm text-public-text-muted mt-8">
+                    &copy; 2026 Sachin &mdash; Built with shadcn UI
+                </p>
             </footer>
-        </div>
+
+        </div >
     )
 }

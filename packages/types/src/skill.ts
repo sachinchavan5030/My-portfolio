@@ -1,13 +1,13 @@
-
 export type Skills = {
     id?: number
     skills: string | null
-
+    skillIcon: string | null
 }
 
 export interface CREATE_SKILL_REQUEST {
     id?: number
     skills: string
+    skillIcon: string
 }
 export type CREATE_SKILL_RESPONSE = {
     message: string

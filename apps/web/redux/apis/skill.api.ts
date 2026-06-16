@@ -1,6 +1,6 @@
 import { APP_URL } from "@/config/env"
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
-import { CREATE_SKILL_REQUEST, CREATE_SKILL_RESPONSE, DELETE_SKILL_REQUEST, DELETE_SKILL_RESPONSE, READ_SKILL_REQUEST, READ_SKILL_RESPONSE, UPDATE_SKILL_REQUEST, UPDATE_SKILL_RESPONSE } from "@repo/types"
+import { CREATE_SKILL_RESPONSE, CREATE_SKILL_REQUEST, DELETE_SKILL_REQUEST, DELETE_SKILL_RESPONSE, READ_SKILL_REQUEST, READ_SKILL_RESPONSE, UPDATE_SKILL_RESPONSE } from "@repo/types"
 export const skillApi = createApi({
     reducerPath: "skillApi",
     baseQuery: fetchBaseQuery({ baseUrl: `/api/skill`, credentials: "include" }),
@@ -26,12 +26,12 @@ export const skillApi = createApi({
                 },
                 invalidatesTags: ["skill"]
             }),
-            updateSkill: builder.mutation<UPDATE_SKILL_RESPONSE, UPDATE_SKILL_REQUEST>({
+            updateSkill: builder.mutation<UPDATE_SKILL_RESPONSE, { id: number, body: CREATE_SKILL_REQUEST }>({
                 query: skillData => {
                     return {
                         url: "/skill-update/" + skillData.id,
                         method: "PUT",
-                        body: skillData
+                        body: skillData.body
                     }
                 },
                 invalidatesTags: ["skill"]

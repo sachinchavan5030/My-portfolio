@@ -1,20 +1,19 @@
 "use client"
-import { Button } from '@/components/ui/button'
-import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
-import { Field, FieldGroup } from '@/components/ui/field'
+import { Button } from "@/components/ui/button"
+import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
+import { Field, FieldGroup } from "@/components/ui/field"
 import { Label } from "@/components/ui/label"
-import { Input } from '@/components/ui/input'
-import { useState } from 'react'
-import z from 'zod'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { CREATE_SKILL_REQUEST, Skills } from '@repo/types'
-import { toast } from 'sonner'
-import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
-import { MoreHorizontalIcon, Pencil, Trash2 } from 'lucide-react'
-import { useAddSkillMutation, useDeleteSkillMutation, useGetSkillQuery, useUpdateSkillMutation } from '@/redux/apis/skill.api'
-import { Card, CardContent } from '@/components/ui/card'
+import { Input } from "@/components/ui/input"
+import { useState } from "react"
+import z from "zod"
+import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { CREATE_SKILL_REQUEST, Skills } from "@repo/types"
+import { toast } from "sonner"
+import { MoreHorizontalIcon, Pencil, Trash2 } from "lucide-react"
+import { useAddSkillMutation, useDeleteSkillMutation, useGetSkillQuery, useUpdateSkillMutation } from "@/redux/apis/skill.api"
+import { Card, CardContent } from "@/components/ui/card"
+import { getIcon } from "@/lib/icon-map"
 
 
 const MyExprience = () => {
@@ -29,29 +28,32 @@ const MyExprience = () => {
     const closeDialog = () => {
         setShow(false)
         setSelectedProject(null)
-        reset({ skills: "" })
+        reset({ skills: "", skillIcon: "" })
     }
 
 
     const exprienceSchema = z.object({
         skills: z.string(),
+        skillIcon: z.string(),
     }) satisfies z.ZodType<CREATE_SKILL_REQUEST>
 
-    const { register, reset, handleSubmit, formState: { errors } } = useForm({
+    const { register, reset, handleSubmit, watch, formState: { errors } } = useForm({
         resolver: zodResolver(exprienceSchema)
     })
+
+    const watchedIcon = watch("skillIcon")
 
     const handleFormSubmit = async (userData: CREATE_SKILL_REQUEST) => {
         try {
             if (selectedProject) {
-                await updateSkill({ id: selectedProject.id as number, ...userData })
+                await updateSkill({ id: selectedProject.id as number, body: userData }).unwrap()
                 setShow(false)
-                toast.success("project update success")
+                toast.success("skill update success")
             } else {
                 await addSkill(userData).unwrap()
                 setShow(false)
                 reset()
-                toast.success("project create success")
+                toast.success("skill create success")
             }
         } catch (error) {
             console.log(error)
@@ -61,7 +63,7 @@ const MyExprience = () => {
     const handleDelete = async (id: number) => {
         try {
             await deleteSkill({ id }).unwrap()
-            toast.success("project delete success")
+            toast.success("skill delete success")
         } catch (error) {
             console.log(error)
         }
@@ -72,16 +74,16 @@ const MyExprience = () => {
         setSelectedProject(projectData)
         reset({
             skills: projectData.skills as string,
+            skillIcon: projectData.skillIcon ?? "",
         })
     }
 
 
     return <>
-
         <Dialog open={show}>
             <div className="flex justify-end">
                 <DialogTrigger asChild>
-                    <Button disabled={isLoading} onClick={() => setShow(true)}>Add Your About</Button>
+                    <Button disabled={isLoading} onClick={() => setShow(true)}>Add Skill</Button>
                 </DialogTrigger>
             </div>
             <DialogContent isLoading={isLoading} closeDialog={closeDialog} className="sm:max-w-lg">
@@ -89,12 +91,12 @@ const MyExprience = () => {
                     <DialogHeader >
                         {
                             selectedProject
-                                ? <DialogTitle>Update Profile</DialogTitle>
-                                : <DialogTitle>Save Profile</DialogTitle>
+                                ? <DialogTitle>Update Skill</DialogTitle>
+                                : <DialogTitle>Save Skill</DialogTitle>
 
                         }
                         <DialogDescription>
-                            Make changes to your profile here. Click save when you&apos;re
+                            Make changes to your skill here. Click save when you're
                             done.
                         </DialogDescription>
                     </DialogHeader>
@@ -105,6 +107,22 @@ const MyExprience = () => {
                             <Input disabled={isLoading} {...register("skills")} />
                         </Field>
 
+                        <Field>
+                            <Label htmlFor="skillIcon">Icon Name</Label>
+                            <Input disabled={isLoading} {...register("skillIcon")} placeholder="e.g. FaReact, SiTypescript" />
+                            {(() => {
+                                const IconPreview = getIcon(watchedIcon)
+                                return watchedIcon ? (
+                                    <div className="mt-2 flex items-center gap-2 text-sm text-muted-foreground">
+                                        <span>Preview:</span>
+                                        <span className="text-xl text-[#FF014F]">
+                                            <IconPreview />
+                                        </span>
+                                    </div>
+                                ) : null
+                            })()}
+                        </Field>
+
                     </FieldGroup>
                     <DialogFooter className="mt-3">
                         <DialogClose asChild>
@@ -112,7 +130,7 @@ const MyExprience = () => {
                         </DialogClose>
                         {
                             selectedProject
-                                ? <Button type="submit">Update Your Projects</Button>
+                                ? <Button type="submit">Update Skill</Button>
                                 : <Button disabled={isLoading} type="submit">Save Changes</Button>
 
                         }
@@ -123,81 +141,47 @@ const MyExprience = () => {
 
 
 
-        {/* <div className="overflow-x-auto w-full">
-            {data && <Table >
-                <TableCaption >A list of your recent invoices.</TableCaption>
-                <TableHeader>
-                    <TableRow className="">
-
-                        <TableHead>Skill</TableHead>
-                        <TableHead>Action</TableHead>
-                    </TableRow>
-                </TableHeader>
-                <TableBody>
-                    {data.result?.map((item) =>
-                        <TableRow key={item.id}>
-                            <TableCell>{item.skills}</TableCell>
-                            <TableCell className="text-right">
-                                <DropdownMenu>
-                                    <DropdownMenuTrigger asChild>
-                                        <Button variant="ghost" size="icon" className="size-8">
-                                            <MoreHorizontalIcon />
-                                            <span className="sr-only">Open menu</span>
-                                        </Button>
-                                    </DropdownMenuTrigger>
-                                    <DropdownMenuContent align="end">
-                                        <DropdownMenuItem onClick={() => handleEdit(item)}>Edit</DropdownMenuItem>
-                                        <DropdownMenuSeparator />
-                                        <DropdownMenuItem className="text-red-500" onClick={() => handleDelete(item.id as number)}>
-                                            Delete
-                                        </DropdownMenuItem>
-                                    </DropdownMenuContent>
-                                </DropdownMenu>
-                            </TableCell>
-                        </TableRow>
-                    )}
-                </TableBody>
-            </Table >
-            }
-        </div> */}
-
         <div className="container mx-auto mt-6">
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
 
-                {data && data.result?.map((item) => (
-                    <Card key={item.id} className="shadow-md hover:shadow-lg transition">
-                        <CardContent className="flex flex-col items-center justify-center p-4">
+                {data && data.result?.map((item) => {
+                    const IconComponent = getIcon(item.skillIcon)
+                    return (
+                        <Card key={item.id} className="shadow-md hover:shadow-lg transition">
+                            <CardContent className="flex flex-col items-center justify-center p-4">
 
-                            {/* Skill */}
-                            <h5 className="text-lg font-semibold mb-3">
-                                {item.skills}
-                            </h5>
+                                <div className="text-3xl text-[#FF014F] mb-3">
+                                    <IconComponent />
+                                </div>
 
-                            {/* Actions */}
-                            <div className="flex gap-2">
-                                <Button
-                                    variant="ghost"
-                                    size="icon"
-                                    onClick={() => {
-                                        handleEdit(item)
-                                        // setEdit(item.id)
-                                    }}
-                                >
-                                    <Pencil className="w-4 h-4 text-gray-500" />
-                                </Button>
+                                <h5 className="text-lg font-semibold mb-3">
+                                    {item.skills}
+                                </h5>
 
-                                <Button
-                                    variant="ghost"
-                                    size="icon"
-                                    onClick={() => handleDelete(item.id as number)}
-                                >
-                                    <Trash2 className="w-4 h-4 text-red-500" />
-                                </Button>
-                            </div>
+                                <div className="flex gap-2">
+                                    <Button
+                                        variant="ghost"
+                                        size="icon"
+                                        onClick={() => {
+                                            handleEdit(item)
+                                        }}
+                                    >
+                                        <Pencil className="w-4 h-4 text-gray-500" />
+                                    </Button>
 
-                        </CardContent>
-                    </Card>
-                ))}
+                                    <Button
+                                        variant="ghost"
+                                        size="icon"
+                                        onClick={() => handleDelete(item.id as number)}
+                                    >
+                                        <Trash2 className="w-4 h-4 text-red-500" />
+                                    </Button>
+                                </div>
+
+                            </CardContent>
+                        </Card>
+                    )
+                })}
 
             </div>
         </div>

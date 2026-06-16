@@ -17,6 +17,7 @@
     "@reduxjs/toolkit": "^2.11.2",
     "@repo/types": "^1.0.0",
     "expo": "~54.0.33",
+    "expo-image-picker": "~17.0.11",
     "expo-splash-screen": "^55.0.19",
     "expo-status-bar": "~3.0.9",
     "react": "19.1.0",

@@ -46,6 +46,16 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+  --color-public-bg: var(--public-bg);
+  --color-public-text-heading: var(--public-text-heading);
+  --color-public-text-body: var(--public-text-body);
+  --color-public-text-muted: var(--public-text-muted);
+  --color-public-card-bg: var(--public-card-bg);
+  --color-public-tech-tag: var(--public-tech-tag);
+  --color-public-divider: var(--public-divider);
+  --color-public-hover-bg: var(--public-hover-bg);
+  --color-public-hover-text: var(--public-hover-text);
+  --color-public-border: var(--public-border);
 }
 
 :root {
@@ -81,6 +91,21 @@
   --sidebar-ring: oklch(0.705 0.015 286.067);
   --background: oklch(1 0 0);
   --foreground: oklch(0.141 0.005 285.823);
+  --public-bg: #ECF0F3;
+  --public-text-heading: #1E2125;
+  --public-text-body: #374151;
+  --public-text-muted: #6b7280;
+  --public-card-bg: #ECF0F3;
+  --public-shadow: -8px -8px 16px #ffffff, 8px 8px 16px #d1d9e6;
+  --public-shadow-sm: -6px -6px 12px #ffffff, 6px 6px 12px #d1d9e6;
+  --public-shadow-xs: -4px -4px 8px #ffffff, 4px 4px 8px #d1d9e6;
+  --public-shadow-lg: -10px -10px 20px #ffffff, 10px 10px 20px #d1d9e6;
+  --public-shadow-xl: -12px -12px 24px #ffffff, 12px 12px 24px #d1d9e6;
+  --public-divider: #000;
+  --public-tech-tag: #ffffff;
+  --public-hover-bg: #0c0c0c;
+  --public-hover-text: #ffffff;
+  --public-border: #d1d5db;
 }
 
 .dark {
@@ -114,7 +139,22 @@
   --sidebar-accent: oklch(0.274 0.006 286.033);
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.552 0.016 285.938);
+  --sidebar-ring: oklch(0.552 0.015 286.067);
+  --public-bg: #1a1a2e;
+  --public-text-heading: #e4e4e7;
+  --public-text-body: #d4d4d8;
+  --public-text-muted: #a1a1aa;
+  --public-card-bg: #2d2d44;
+  --public-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  --public-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.25);
+  --public-shadow-xs: 0 1px 4px rgba(0, 0, 0, 0.2);
+  --public-shadow-lg: 0 12px 28px rgba(0, 0, 0, 0.35);
+  --public-shadow-xl: 0 20px 50px rgba(0, 0, 0, 0.4);
+  --public-divider: #ffffff;
+  --public-tech-tag: #3f3f46;
+  --public-hover-bg: #FF014F;
+  --public-hover-text: #ffffff;
+  --public-border: #3f3f46;
 }
 
 @layer base {
@@ -132,5 +172,26 @@
 
   .container {
     @apply max-w-7xl mx-auto px-4;
+  }
+}
+
+@layer utilities {
+  .public-shadow {
+    box-shadow: var(--public-shadow);
+  }
+  .public-shadow-sm {
+    box-shadow: var(--public-shadow-sm);
+  }
+  .public-shadow-xs {
+    box-shadow: var(--public-shadow-xs);
+  }
+  .public-shadow-lg {
+    box-shadow: var(--public-shadow-lg);
+  }
+  .public-shadow-xl {
+    box-shadow: var(--public-shadow-xl);
+  }
+  .hover-public-shadow-sm:hover {
+    box-shadow: var(--public-shadow-sm);
   }
 }

@@ -1,19 +1,17 @@
 import { Request, Response } from "express"
 import db from "../config/db"
 import { eq } from "drizzle-orm"
-import { CREATE_SKILL_REQUEST, CREATE_SKILL_RESPONSE, DELETE_SKILL_REQUEST, DELETE_SKILL_RESPONSE, READ_SKILL_REQUEST, READ_SKILL_RESPONSE, UPDATE_SKILL_REQUEST, UPDATE_SKILL_RESPONSE } from "@repo/types"
+import { CREATE_SKILL_REQUEST, CREATE_SKILL_RESPONSE, READ_SKILL_REQUEST, READ_SKILL_RESPONSE, UPDATE_SKILL_REQUEST, UPDATE_SKILL_RESPONSE, DELETE_SKILL_REQUEST, DELETE_SKILL_RESPONSE } from "@repo/types"
 import { skill } from "../models"
-
-
 
 export const createSkill = async (req: Request<{}, {}, CREATE_SKILL_REQUEST>, res: Response<CREATE_SKILL_RESPONSE>) => {
     try {
-        const { skills } = req.body
-        await db.insert(skill).values({ skills })
+        const { skills, skillIcon } = req.body
+        await db.insert(skill).values({ skills, skillImage: skillIcon?.trim() })
         res.status(200).json({ message: "Skill create success" })
     } catch (error) {
         console.log(error)
-        res.status(500).json({ message: "unable to Skill create " })
+        res.status(500).json({ message: "unable to Skill create" })
     }
 }
 
@@ -21,19 +19,31 @@ export const createSkill = async (req: Request<{}, {}, CREATE_SKILL_REQUEST>, re
 export const readSkill = async (req: Request<{}, {}, READ_SKILL_REQUEST>, res: Response<READ_SKILL_RESPONSE>) => {
     try {
         const result = await db.select().from(skill)
-        res.status(200).json({ message: "Skill read success", result })//result
+        const mapped = result.map(r => ({
+            id: r.id,
+            skills: r.skills,
+            skillIcon: r.skillImage,
+        }))
+        res.status(200).json({ message: "Skill read success", result: mapped })
     } catch (error) {
         console.log(error)
-        res.status(500).json({ message: "unable to Skill read " })
+        res.status(500).json({ message: "unable to Skill read" })
     }
 }
 
 
 export const updateSkill = async (req: Request<{ eid: number }, {}, UPDATE_SKILL_REQUEST>, res: Response<UPDATE_SKILL_RESPONSE>) => {
-    const { eid } = req.params
-    const { skills } = req.body
     try {
-        await db.update(skill).set({ skills }).where(eq(skill.id, eid))
+        const { eid } = req.params
+        const { skills, skillIcon } = req.body
+        const [result] = await db.select().from(skill).where(eq(skill.id, eid))
+        if (!result) {
+            return res.status(400).json({ message: "invalid skill id" })
+        }
+        await db.update(skill).set({
+            skills,
+            skillImage: skillIcon?.trim(),
+        }).where(eq(skill.id, eid))
         res.status(200).json({ message: "update Skill success" })
     } catch (error) {
         console.log(error)
@@ -49,6 +59,6 @@ export const deleteSkill = async (req: Request<{ eid: number }, {}, DELETE_SKILL
         res.status(200).json({ message: "Skill delete success" })
     } catch (error) {
         console.log(error)
-        res.status(500).json({ message: "unable to Skill delete " })
+        res.status(500).json({ message: "unable to Skill delete" })
     }
 }
